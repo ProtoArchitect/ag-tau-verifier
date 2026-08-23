@@ -1,3 +1,7 @@
+> **Proprietary Evaluation & Review Kit**
+> This repository is provided exclusively for technical due diligence and academic review by authorized partners. The core engine IP remains closed-source and proprietary. No commercial use or unauthorized forks are permitted.
+
+
 <!-- ag-doc:v1|tau|readme|#e5532f|τ -->
 <div>
 <p><span style="display:inline-block;width:34px;border-top:2px solid #e5532f;"></span>
