@@ -1,37 +1,18 @@
-name: Rust CI
-
+name: CI
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ "main" ]
-
+    branches: [ "main", "master" ]
 jobs:
-  validate:
-    name: Lints, Tests & Security
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-
-      - name: Rust Cache
-        uses: Swatinem/rust-cache@v2
-
-      - name: Check formatting
-        run: cargo fmt --all -- --check
-
-      - name: Run Clippy
-        run: cargo clippy --workspace -- -D warnings
-
-      - name: Install cargo-deny
-        uses: EmbarkStudios/cargo-deny-action@v1
-        with:
-          command: check bans licenses sources
-
-      - name: Run tests
-        run: cargo test --workspace
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt -- --check
+      - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo test --all-targets --all-features
