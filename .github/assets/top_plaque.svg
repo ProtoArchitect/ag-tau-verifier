@@ -15,12 +15,12 @@
   <rect class="bg" x="1" y="1" width="798" height="298" />
   
   <line x1="166.75" y1="45" x2="198.75" y2="45" class="line" />
-  <text class="title" x="400" y="49">TAU · TDX SEMANTIC · COMPRESSION ENGINE</text>
+  <text class="title" x="400" y="49">TAU · REFERENCE · VERIFIER</text>
   <line x1="601.25" y1="45" x2="633.25" y2="45" class="line" />
   
   <text class="ag" x="424" y="145">ag</text>
   <text class="sup" x="429" y="105">τ</text>
   
   <text class="name" x="400" y="205">tau</text>
-  <text class="tagline" x="400" y="265">TDX Semantic Compression Engine for EVM/Solana payloads.</text>
+  <text class="tagline" x="400" y="265">The Zero-Decompression State Compression Layer.</text>
 </svg>

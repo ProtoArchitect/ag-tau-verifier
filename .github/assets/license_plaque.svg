@@ -25,14 +25,14 @@
   <text class="header-sup" x="772" y="18">τ</text>
   
   <line x1="300" y1="85" x2="324" y2="85" class="line" />
-  <text class="mid-text" x="400" y="89">NON-COMMERCIAL</text>
+  <text class="mid-text" x="400" y="89">OPEN-SOURCE</text>
   <line x1="476" y1="85" x2="500" y2="85" class="line" />
   
-  <text class="prop" x="400" y="165">PROPRIETARY</text>
+  <text class="prop" x="400" y="165">APACHE-2.0</text>
   
   <text class="copy" x="400" y="205">© 2026 Mikhail Kostan · ag</text>
   <text class="copy" x="515" y="200" font-size="8px">τ</text>
   
   <text class="legal" x="400" y="240">THIS IS A LEGALLY BINDING AGREEMENT BETWEEN YOU AND THE COPYRIGHT HOLDER.</text>
-  <text class="legal" x="400" y="260">NON-COMMERCIAL USE ONLY.</text>
+  <text class="legal" x="400" y="260">OPEN FOR ALL USES.</text>
 </svg>
