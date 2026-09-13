@@ -1,0 +1,50 @@
+name: CI / Audit
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+jobs:
+  build-and-test:
+    name: Rust Audit & Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rust: [stable, 1.75.0]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt, clippy
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+      - name: Check formatting
+        run: cargo fmt -- --check
+      - name: Run Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Run tests
+        run: cargo test --all-targets --all-features
+      - name: Run doc tests
+        run: cargo test --doc
+      - name: Cross-target check (no_std validation)
+        run: |
+          if grep -q "#\s*!\[no_std\]" src/lib.rs 2>/dev/null || grep -q "#\s*!\[no_std\]" src/main.rs 2>/dev/null; then
+            echo "Detected #![no_std], checking embedded targets..."
+            rustup target add thumbv7em-none-eabihf wasm32-unknown-unknown
+            cargo check --target thumbv7em-none-eabihf --no-default-features
+            cargo check --target wasm32-unknown-unknown --no-default-features
+          else
+            echo "Standard std crate, skipping bare-metal targets."
+          fi
+      - name: Security Audit
+        uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+      - name: Cargo Deny Check
+        uses: EmbarkStudios/cargo-deny-action@v2
+        continue-on-error: true
