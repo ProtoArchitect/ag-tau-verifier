@@ -1,0 +1,47 @@
+name: repository-passport
+
+on:
+  # This workflow exposes the `docs / repository-passport` status check,
+  # which is a required status check on the default branch per the
+  # `fortress-critical-main` ruleset. Required checks must run on every
+  # PR / push (not only when the passport file itself changes), otherwise
+  # PRs that don't touch the passport are blocked with "required check
+  # missing". The validation step itself is < 1 second so always-on is
+  # cheap.
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: docs / repository-passport
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate required passport fields
+        shell: bash
+        run: |
+          set -euo pipefail
+          PASSPORT=".github/REPOSITORY_PASSPORT.md"
+          test -f "$PASSPORT" || { echo "::error::$PASSPORT missing"; exit 1; }
+
+          required=(repo_class visibility ip_sensitivity public_boundary
+                    security_profile patent_family pct_deadline canonical_docs
+                    release_policy ci_profile runner_profile backup_profile owner)
+
+          for f in "${required[@]}"; do
+            grep -q "^| ${f} |" "$PASSPORT" || {
+              echo "::error::passport missing field: $f"
+              exit 1
+            }
+          done
+
+          if grep -q "^| ip_sensitivity | crown-jewel |" "$PASSPORT"; then
+            grep -q "^| release_policy | signed" "$PASSPORT" || {
+              echo "::error::crown-jewel repos must use signed release/tag policy"
+              exit 1
+            }
+          fi

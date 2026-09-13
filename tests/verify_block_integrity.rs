@@ -186,10 +186,7 @@ fn zero_tx_block_with_nontrivial_registry() {
     let reg_b: Vec<u8> = vec![0xBB; 64];
     let block_a = build_block_zero_txs(99, &reg_a, domain, [0u8; 32]);
     let block_b = build_block_zero_txs(99, &reg_b, domain, [0u8; 32]);
-    assert_ne!(
-        block_a, block_b,
-        "distinct registries must produce distinct blocks"
-    );
+    assert_ne!(block_a, block_b, "distinct registries must produce distinct blocks");
 }
 
 #[test]

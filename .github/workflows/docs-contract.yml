@@ -1,0 +1,39 @@
+name: docs-contract
+
+on:
+  pull_request:
+    paths: ["docs/**", ".github/REPOSITORY_PASSPORT.md"]
+  push:
+    branches: [main]
+    paths: ["docs/**", ".github/REPOSITORY_PASSPORT.md"]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: docs / contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Required docs exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f docs/INDEX.md || { echo "::error::docs/INDEX.md missing"; exit 1; }
+          for f in ARCHITECTURE.md SECURITY.md CLAIMS_LEDGER.md EVIDENCE_LEDGER.md; do
+            test -f "docs/$f" || { echo "::error::docs/$f missing"; exit 1; }
+            grep -q "^# " "docs/$f" || { echo "::error::docs/$f missing H1 title"; exit 1; }
+          done
+
+      - name: Patent repos must have patent notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q "^| patent_family | P" .github/REPOSITORY_PASSPORT.md 2>/dev/null; then
+            test -f docs/PATENT_NOTES.md || {
+              echo "::error::patent_family set but docs/PATENT_NOTES.md missing"
+              exit 1
+            }
+          fi

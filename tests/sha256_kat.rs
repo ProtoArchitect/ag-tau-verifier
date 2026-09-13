@@ -41,9 +41,7 @@ fn sha256_long_message_kat() {
     // FIPS 180-4 reference vector: SHA-256 of the 56-byte
     // "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq" =
     //   248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1
-    let h = hash_256(
-        b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-    );
+    let h = hash_256(b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq");
     assert_eq!(
         hex(&h),
         "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
@@ -67,9 +65,5 @@ fn hash_256_avalanche() {
         diff_bits += (a[i] ^ b[i]).count_ones();
     }
     // SHA-256 avalanche typically flips ~50% of the 256 output bits.
-    assert!(
-        diff_bits > 80,
-        "avalanche too weak: only {} bits differ",
-        diff_bits
-    );
+    assert!(diff_bits > 80, "avalanche too weak: only {} bits differ", diff_bits);
 }

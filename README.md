@@ -1,14 +1,9 @@
-<!-- ag-doc:v1|tau|readme|#e5532f|τ -->
-<div>
-<p><span style="display:inline-block;width:34px;border-top:2px solid #e5532f;"></span>
-<code style="font-size:10px;letter-spacing:0.18em">TAU · OVERVIEW</code></p>
-<p style="font-size:2em;margin:0.35em 0 0"><strong style="font-family:Comfortaa,'Segoe UI',sans-serif">ag<sup style="color:#e5532f">τ</sup></strong>
-<span style="font-family:Comfortaa,'Segoe UI',sans-serif;font-weight:500;font-size:0.65em"> tau</span>
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.35em;letter-spacing:0.12em;color:#6b6972"> · README</span></p>
-<blockquote><p>tau-verifier</p></blockquote>
-</div>
-
----
+<p align="center">
+  <img src=".github/assets/top_plaque.svg" width="800" alt="Tau Header" />
+</p>
+<p align="center">
+  
+</p>
 
 Reference verifier for the **TAU Protocol** — The Zero-Decompression State Compression Layer.
 
@@ -35,3 +30,12 @@ fn check_tx_inclusion(domain: Domain, leaf: Leaf, witness: Witness) -> bool {
     // Takes exactly 0.31 µs (zero memory allocations).
     verify_inclusion(domain, leaf, &witness)
 }
+
+## Contributing
+
+Contributions are welcome! Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a Pull Request.
+This project enforces [Code of Conduct](CODE_OF_CONDUCT.md) in all community spaces.
+
+<p align="center">
+  <img src=".github/assets/license_plaque.svg" width="800" alt="License Plaque" />
+</p>

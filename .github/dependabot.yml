@@ -1,0 +1,37 @@
+version: 2
+
+updates:
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    groups:
+      cargo-minor-patch:
+        update-types: [minor, patch]
+      cargo-major:
+        update-types: [major]
+    commit-message:
+      prefix: "deps(cargo)"
+    labels:
+      - "type/dependency"
+      - "area/rust"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:30"
+      timezone: "Etc/UTC"
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "deps(actions)"
+    labels:
+      - "type/dependency"
+      - "area/ci"
