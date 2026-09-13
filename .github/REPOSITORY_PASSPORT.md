@@ -14,7 +14,7 @@
 | field | value |
 |---|---|
 | repo_class | engine |
-| visibility | private |
+| visibility | public |
 | ip_sensitivity | high |
 | public_boundary | none |
 | security_profile | baseline |
